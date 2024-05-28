@@ -4,36 +4,36 @@ import axios from 'axios';
 import StudentForm from './StudentForm';
 
 function StudentTable() {
-  const [students, setStudents] = useState([]);
-  const [editingStudent, setEditingStudent] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [students, setStudents] = useState([])
+  const [editingStudent, setEditingStudent] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
   useEffect(() => {
-    fetchStudents();
-  }, []);
+    fetchStudents()
+  }, [])
 
   const fetchStudents = async () => {
-    const response = await axios.get('http://localhost:8080/get');
-    setStudents(response.data);
-  };
+    const response = await axios.get('http://localhost:8080/get')
+    setStudents(response.data)
+  }
 
   const deleteStudent = async (id) => {
-    await axios.delete(`http://localhost:8080/delete/${id}`);
-    fetchStudents();
-  };
+    await axios.delete(`http://localhost:8080/delete/${id}`)
+    fetchStudents()
+  }
 
   const saveStudent = async (student) => {
     if (student.id) {
       await axios.put('http://localhost:8080/update', null, {
         params: student
-      });
+      })
     } else {
       await axios.post('http://localhost:8080/add', null, {
         params: student
-      });
+      })
     }
-    fetchStudents();
-    setEditingStudent(null);
-  };
+    fetchStudents()
+    setEditingStudent(null)
+  }
 
   return (
     <div>
